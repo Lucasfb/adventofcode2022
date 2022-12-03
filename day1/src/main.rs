@@ -1,4 +1,3 @@
-use std::fs;
 use std::cmp::Ordering;
 
 #[derive(Eq,Clone)]
@@ -28,9 +27,8 @@ impl PartialEq for Elf {
 fn main() {
     println!("Advent of Code 2022 - Day 1");
 
-    let input_filename = "aoc2022_day1a_input.txt";
-    let input = fs::read_to_string(input_filename).expect("Could not open file");
-
+    
+    let input = open_input_file();
     let elf_list_string:Vec<&str> = input.split("\n\n").collect(); // Split on double newline (empty lines)
 //    println!("{}",elf_list[0]);
 
@@ -64,4 +62,9 @@ fn main() {
     println!("{}",total_top3_calories); // Answer for part two of the puzzle
 
 
+}
+
+fn open_input_file() -> String {
+    let input_filename = "aoc2022_day1a_input.txt";
+    fs_err::read_to_string(input_filename).unwrap()
 }
