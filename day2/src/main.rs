@@ -134,6 +134,7 @@ fn main() {
 
 
 
+/* 
 fn match_score_part1(opponent_move: &char, my_move: &char) -> u32 {
     match (opponent_move,my_move) {
         ('A','X') => 3+1,
@@ -147,7 +148,8 @@ fn match_score_part1(opponent_move: &char, my_move: &char) -> u32 {
         ('C','Z') => 3+3,
         _ => panic!()
     }
-}
+} 
+*/
 
 fn match_score_part2(opponent_move: &char, my_move: &char) -> u32 {
     match (opponent_move,my_move) {
