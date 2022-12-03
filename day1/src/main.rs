@@ -2,7 +2,7 @@ use std::env;
 use std::fs;
 use std::cmp::Ordering;
 
-#[derive(Eq)]
+#[derive(Eq,Clone)]
 struct Elf {
     food_stock : Vec<u32>,
     calories_total: u32,
@@ -51,4 +51,18 @@ fn main() {
         println!("{}",max.calories_total)
         // Answer for part one of the puzzle
     }
+
+    // Start of part two of puzzle
+    // Sort the list by calories_total and pick the top three (last elements)
+    elf_list.sort();
+    let elf_first_most_calories = &elf_list[elf_list.len()-1];
+    let elf_second_most_calories = &elf_list[elf_list.len()-2];
+    let elf_third_most_calories = &elf_list[elf_list.len()-3];
+
+    let total_top3_calories = &elf_first_most_calories.calories_total +
+                                &elf_second_most_calories.calories_total + 
+                                &elf_third_most_calories.calories_total;
+    println!("{}",total_top3_calories); // Answer for part two of the puzzle
+
+
 }
