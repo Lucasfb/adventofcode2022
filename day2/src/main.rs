@@ -1,3 +1,105 @@
+use std::str::FromStr;
+
+#[derive(Debug, Clone, Copy)]
+enum Move {
+    Rock,
+    Paper,
+    Scissors,
+}
+
+impl Move {
+    fn inherent_points(self) -> usize {
+        match self {
+            Move::Rock => 1,
+            Move::Paper => 2,
+            Move::Scissors => 3,
+        }
+    }
+
+    fn beats(self, other:Move) -> bool {
+        matches!((self,other),
+            (Self::Rock,Self::Scissors)
+            | (Self::Paper,Self::Rock)
+            | (Self::Scissors,Self::Paper)
+        )
+    }
+
+    fn outcome(self,theirs:Move) -> Outcome {
+        if self.beats(theirs) {
+            Outcome::Win
+        } else if theirs.beats(self) {
+            Outcome::Loss 
+        } else {
+            Outcome::Draw
+        }
+    }
+}
+
+impl TryFrom<char> for Move {
+    type Error = &'static str;
+
+    fn try_from(c:char) -> Result<Self,Self::Error> {
+        match c {
+            'A'|'X' => Ok(Move::Rock),
+            'B'|'Y' => Ok(Move::Paper),
+            'C'|'Z' => Ok(Move::Scissors),
+            _ => Err("Invalid move")
+        }
+    }
+}
+
+#[derive(Debug, Clone, Copy)]
+struct Round {
+    theirs: Move,
+    ours: Move,
+}
+
+impl Round {
+    fn outcome(self) -> Outcome {
+        self.ours.outcome(self.theirs)
+    }
+
+    fn our_score(self) -> usize {
+        self.ours.inherent_points() + self.outcome().inherent_points()
+    }
+}
+
+impl FromStr for Round {
+    type Err = &'static str;
+
+    fn from_str(s: &str) -> Result<Self,Self::Err> {
+        let mut chars = s.chars();
+        let (Some(theirs), Some(' '), Some(ours),None) = 
+        (chars.next(),chars.next(),chars.next(),chars.next()) 
+        else {
+            return Err("Line does not match pattern <theirs>SP<ours>EOF")
+        };
+
+        Ok(Self{
+            theirs: theirs.try_into()?,
+            ours: ours.try_into()?,
+        })
+    }
+
+}
+
+#[derive(Debug, Clone, Copy)]
+enum Outcome {
+    Loss,
+    Draw,
+    Win,
+}
+
+impl Outcome {
+    fn inherent_points(self) -> usize {
+        match self {
+            Outcome::Win => 6,
+            Outcome::Draw => 3,
+            Outcome::Loss => 0,
+        }
+    }
+}
+
 fn main() {
     println!("Advent of Code 2022 - Day 2");
 
@@ -6,10 +108,15 @@ fn main() {
     let mut total_score = 0;
     let list_matches = input.lines();
     for strategy in list_matches {
-        let mut turn: String = strategy.split(' ').collect();
+        let round = strategy.parse::<Round>().unwrap(); 
+        let round_score = round.our_score();
+        total_score += round_score;
+        /*
+        let mut turn: Round = strategy.split(' ').collect().parse::<Round>();
         let my_move = turn.pop().unwrap();
         let opponent_move = turn.pop().unwrap();
         total_score += match_score_part1(&opponent_move,&my_move);
+        */
     }
     println!("Answer for Part One: {}",total_score);
 
