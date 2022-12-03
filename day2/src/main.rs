@@ -6,10 +6,10 @@ fn main() {
     let mut total_score = 0;
     let list_matches = input.lines();
     for strategy in list_matches {
-        let mut turn: String = strategy.split(" ").collect();
+        let mut turn: String = strategy.split(' ').collect();
         let my_move = turn.pop().unwrap();
         let opponent_move = turn.pop().unwrap();
-        total_score = total_score + match_score_part1(&opponent_move,&my_move);
+        total_score += match_score_part1(&opponent_move,&my_move);
     }
     println!("Answer for Part One: {}",total_score);
 
@@ -17,10 +17,10 @@ fn main() {
     let mut total_score = 0;
     let list_matches = input.lines();
     for strategy in list_matches {
-        let mut turn: String = strategy.split(" ").collect();
+        let mut turn: String = strategy.split(' ').collect();
         let my_move = turn.pop().unwrap();
         let opponent_move = turn.pop().unwrap();
-        total_score = total_score + match_score_part2(&opponent_move,&my_move);
+        total_score += match_score_part2(&opponent_move,&my_move);
     }
     println!("Answer for Part Two: {}",total_score);
 }
