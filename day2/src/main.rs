@@ -107,16 +107,11 @@ fn main() {
 
     let mut total_score = 0;
     let list_matches = input.lines();
-    for strategy in list_matches {
-        let round = strategy.parse::<Round>().unwrap(); 
-        let round_score = round.our_score();
+    for round in list_matches {
+        let round_score = round.parse::<Round>()
+        .unwrap()
+        .our_score();
         total_score += round_score;
-        /*
-        let mut turn: Round = strategy.split(' ').collect().parse::<Round>();
-        let my_move = turn.pop().unwrap();
-        let opponent_move = turn.pop().unwrap();
-        total_score += match_score_part1(&opponent_move,&my_move);
-        */
     }
     println!("Answer for Part One: {}",total_score);
 
@@ -131,25 +126,6 @@ fn main() {
     }
     println!("Answer for Part Two: {}",total_score);
 }
-
-
-
-/* 
-fn match_score_part1(opponent_move: &char, my_move: &char) -> u32 {
-    match (opponent_move,my_move) {
-        ('A','X') => 3+1,
-        ('A','Y') => 6+2,
-        ('A','Z') => 0+3,
-        ('B','X') => 0+1,
-        ('B','Y') => 3+2,
-        ('B','Z') => 6+3,
-        ('C','X') => 6+1,
-        ('C','Y') => 0+2,
-        ('C','Z') => 3+3,
-        _ => panic!()
-    }
-} 
-*/
 
 fn match_score_part2(opponent_move: &char, my_move: &char) -> u32 {
     match (opponent_move,my_move) {
