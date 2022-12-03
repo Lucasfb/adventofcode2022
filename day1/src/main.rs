@@ -27,10 +27,8 @@ impl PartialEq for Elf {
 fn main() {
     println!("Advent of Code 2022 - Day 1");
 
-    
     let input = open_input_file();
     let elf_list_string:Vec<&str> = input.split("\n\n").collect(); // Split on double newline (empty lines)
-//    println!("{}",elf_list[0]);
 
     let mut elf_list : Vec<Elf> = Vec::new();
     for elf_string in elf_list_string {
@@ -45,7 +43,7 @@ fn main() {
 
     let most_calories_in_elf = elf_list.iter().max();
     if let Some(max) = most_calories_in_elf {
-        println!("{}",max.calories_total)
+        println!("Answer for Part One: {}",max.calories_total)
         // Answer for part one of the puzzle
     }
 
@@ -59,7 +57,7 @@ fn main() {
     let total_top3_calories = &elf_first_most_calories.calories_total +
                                 &elf_second_most_calories.calories_total + 
                                 &elf_third_most_calories.calories_total;
-    println!("{}",total_top3_calories); // Answer for part two of the puzzle
+    println!("Answer for Part Two: {}",total_top3_calories); // Answer for part two of the puzzle
 
 
 }
