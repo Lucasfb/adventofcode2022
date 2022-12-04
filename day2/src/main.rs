@@ -33,6 +33,26 @@ impl Move {
             Outcome::Draw
         }
     }
+
+    fn winning_move(self) -> Self {
+        match self {
+            Move::Rock => Move::Paper,
+            Move::Paper => Move::Scissors,
+            Move::Scissors => Move::Rock ,
+        }
+    }
+
+    fn losing_move(self) -> Self {
+        match self {
+            Move::Rock => Move::Scissors,
+            Move::Paper => Move::Rock,
+            Move::Scissors => Move::Paper ,
+        }
+    }
+
+    fn drawing_move(self) -> Self {
+        self
+    }
 }
 
 impl TryFrom<char> for Move {
@@ -98,6 +118,28 @@ impl Outcome {
             Outcome::Loss => 0,
         }
     }
+
+    fn matching_move(self, theirs: Move) -> Move {
+        match self {
+            Outcome::Win =>  theirs.winning_move(),
+            Outcome::Draw => theirs.drawing_move(),
+            Outcome::Loss => theirs.losing_move(),
+        }
+
+    }
+}
+
+impl TryFrom<char> for Outcome {
+    type Error = &'static str;
+
+    fn try_from(c:char) -> Result<Self,Self::Error> {
+        match c {
+            'X' => Ok(Outcome::Loss),
+            'Y' => Ok(Outcome::Draw),
+            'Z' => Ok(Outcome::Win),
+            _ => Err("Invalid outcome")
+        }
+    }
 }
 
 fn main() {
@@ -107,10 +149,18 @@ fn main() {
 
     let mut total_score = 0;
     let list_matches = input.lines();
-    for round in list_matches {
-        let round_score = round.parse::<Round>()
-        .unwrap()
-        .our_score();
+    for round_str in list_matches {
+        let mut chars = round_str.chars();
+        let (Some(theirs), Some(' '), Some(ours),None) = 
+        (chars.next(),chars.next(),chars.next(),chars.next()) else {
+            panic!("Round does not follow format <theirs>SP<ours>EOF");
+        };
+
+        let round = Round {
+            theirs: theirs.try_into().unwrap(),
+            ours: ours.try_into().unwrap(),
+        };
+        let round_score = round.our_score();
         total_score += round_score;
     }
     println!("Answer for Part One: {}",total_score);
@@ -118,15 +168,34 @@ fn main() {
     // Start of part two
     let mut total_score = 0;
     let list_matches = input.lines();
+    for round_str in list_matches {
+        let mut chars = round_str.chars();
+        let (Some(theirs), Some(' '), Some(outcome),None) = 
+        (chars.next(),chars.next(),chars.next(),chars.next()) else {
+            panic!("Round does not follow format <theirs>SP<outcome>EOF");
+        };
+
+        let theirs = Move::try_from(theirs).unwrap();
+        let outcome = Outcome::try_from(outcome).unwrap();
+        let ours = outcome.matching_move(theirs);
+        let round = Round {
+            theirs: theirs,
+            ours: ours,
+        };
+        let round_score = round.our_score();
+        total_score += round_score;
+    }
+/* 
     for strategy in list_matches {
         let mut turn: String = strategy.split(' ').collect();
         let my_move = turn.pop().unwrap();
         let opponent_move = turn.pop().unwrap();
         total_score += match_score_part2(&opponent_move,&my_move);
     }
+     */
     println!("Answer for Part Two: {}",total_score);
 }
-
+/* 
 fn match_score_part2(opponent_move: &char, my_move: &char) -> u32 {
     match (opponent_move,my_move) {
         ('A','X') => 3+0,
@@ -141,6 +210,7 @@ fn match_score_part2(opponent_move: &char, my_move: &char) -> u32 {
         _ => panic!()
     }
 }
+ */
 
 fn open_input_file() -> String {
     let input_filename = "input.txt";
