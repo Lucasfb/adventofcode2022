@@ -21,7 +21,23 @@ fn main() {
 
 
     // Start of Part Two
+    let mut backpacks_list: Vec<&str> = input.lines().collect();
+    let mut sum_priorities = 0;
+    
+    while backpacks_list.is_empty() != true {
+        // Since order doesn't matter, only the sum of priorities, we can start from the bottom
+        let (first_backpack, second_backpack, third_backpack) = (backpacks_list.pop().unwrap(),backpacks_list.pop().unwrap(),backpacks_list.pop().unwrap());
+        
+        for item in first_backpack.chars() {
+            if second_backpack.contains(item) & third_backpack.contains(item) {
+                sum_priorities += priority_value(item);
+                break;
+            }
+        }
+    }
+    println!("Answer for Part One: {}",sum_priorities)
 
+   
     
 }
 
