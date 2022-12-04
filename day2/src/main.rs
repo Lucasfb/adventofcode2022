@@ -84,6 +84,9 @@ impl Round {
     }
 }
 
+// Section below is commented out because it was moved to main()
+// It was not possible to use this trait while solving both parts 1 and 2 in a single file
+/* 
 impl FromStr for Round {
     type Err = &'static str;
 
@@ -100,8 +103,8 @@ impl FromStr for Round {
             ours: ours.try_into()?,
         })
     }
-
 }
+ */
 
 #[derive(Debug, Clone, Copy)]
 enum Outcome {
@@ -149,12 +152,17 @@ fn main() {
 
     let mut total_score = 0;
     let list_matches = input.lines();
+
     for round_str in list_matches {
+        // Parsing string into a Round struct
         let mut chars = round_str.chars();
         let (Some(theirs), Some(' '), Some(ours),None) = 
         (chars.next(),chars.next(),chars.next(),chars.next()) else {
             panic!("Round does not follow format <theirs>SP<ours>EOF");
-        };
+        }; 
+        // Round is destructured above here in main instead of trait FromStr
+        // This is done so that both parts of the puzzle can be solved in a single file
+        // 
 
         let round = Round {
             theirs: theirs.try_into().unwrap(),
