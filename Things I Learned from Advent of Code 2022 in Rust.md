@@ -11,3 +11,6 @@
 * Implementing try_from() and from_str(), to parse structs we create
 * The matches! macro
 * Collecting a vector as a trick to avoid dealing with Result
+## Day 3
+* Double check if you really know the alphabet
+* Filling lots of data manually is error prone
