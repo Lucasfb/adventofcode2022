@@ -6,24 +6,23 @@ fn main() {
     let input = open_input_file();
     
     let mut sum_priorities = 0;
-    let mut count_adds = 0;
+
 
     for backpack in input.lines() {
         let (left_compartment,right_compartment) = backpack.split_at(backpack.len()/2);
-        //println!("Left: {}, len: {}, Right: {}, len {}",left_compartment,left_compartment.len(),right_compartment,right_compartment.len());
         for item in left_compartment.chars() {
             if  right_compartment.contains(item) {
-                //println!("Left: {}, Right: {}, Char {} - Value {}",left_compartment,right_compartment,item,priority_value(item));
-                //println!("Char {} - Value {}",item,priority_value(item));
                 sum_priorities += priority_value(item);
-                count_adds += 1;
                 break;
             }
         }
     }
-
-    println!("Count of additions: {}",count_adds);
     println!("Answer for Part One: {}",sum_priorities);
+
+
+    // Start of Part Two
+
+    
 }
 
 fn priority_value(item: char) -> usize {
