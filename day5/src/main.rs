@@ -87,13 +87,13 @@ fn main() {
                                         .collect();
 
     for order in move_orders_list {
-        let mut crates_moved:Vec<char> = Vec::new();
+        let mut crates_moved:VecDeque<char> = VecDeque::new();
         for _ in 0..order.qty {
-            crates_moved.push(stack_list[order.origin-1].pop().unwrap());
+            crates_moved.push_front(stack_list[order.origin-1].pop().unwrap());
             
         }
         for _ in 0..order.qty {
-            stack_list[(order.destination)-1].push(crates_moved.pop().unwrap()); 
+            stack_list[(order.destination)-1].push(crates_moved.pop_front().unwrap()); 
         }
     }
 

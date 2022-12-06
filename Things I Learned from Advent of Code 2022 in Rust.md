@@ -14,3 +14,7 @@
 ## Day 3
 * Double check if you really know the alphabet
 * Filling lots of data manually is error prone
+## Day 4
+
+## Day 5
+* VecDeque might not be necessary when using pop() and push(), but it can make intention clearer
