@@ -15,7 +15,7 @@
 * Double check if you really know the alphabet
 * Filling lots of data manually is error prone
 ## Day 4
-
+* Reusing all stuff from previous days
 ## Day 5
 * VecDeque might not be necessary when using pop() and push(), but it can make intention clearer
 * Parsing columns instead of lines can be hard manually
