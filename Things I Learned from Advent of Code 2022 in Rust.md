@@ -18,3 +18,7 @@
 
 ## Day 5
 * VecDeque might not be necessary when using pop() and push(), but it can make intention clearer
+* Parsing columns instead of lines can be hard manually
+* Rust does not like to use indices
+* Starting to understand when to use map
+    - Apply a series of procedures to each element of an iterator
