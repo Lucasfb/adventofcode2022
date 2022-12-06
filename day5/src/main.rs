@@ -47,7 +47,7 @@ impl FromStr for MoveOrder {
 }
 
 fn main() { 
-    println!("Advent of Code 2022 - Day 3");
+    println!("Advent of Code 2022 - Day 5");
     let input = open_input_file();
 
 
