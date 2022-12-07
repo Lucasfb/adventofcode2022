@@ -7,3 +7,4 @@ edition = "2021"
 
 [dependencies]
 fs-err = "2.9.0"
+itertools = "0.10.5"
