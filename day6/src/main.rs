@@ -2,7 +2,7 @@ use itertools::Itertools;
 
 fn find_position_end_of_marker(input: &str,size_of_window: usize) -> Option<usize> {
     input
-        .as_bytes()
+        .as_bytes()  //Hard to work with chars, so it's easier to use u8
         .windows(size_of_window)
         .position(|window| window
                                         .iter()
