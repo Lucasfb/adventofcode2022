@@ -1,3 +1,4 @@
+/* 
 fn is_start_of_packet_marker(characters_4: &str) -> Result<bool,&str> {
     if characters_4.len() != 4 {
         return  Err("Possible start of packet marker should have a lenght of 4 characters");
@@ -12,14 +13,15 @@ fn is_start_of_packet_marker(characters_4: &str) -> Result<bool,&str> {
 fn different_4_chars(a:char,b:char,c:char,d:char,) -> bool {
     a != b && a != c && a != d && b != c && b != d && c != d 
 }
+ */
 
 fn all_different_chars(input: &str) -> bool {
     let initial_size = input.len();
     let mut dedup_input = input.chars().map(|c| c as u8).collect::<Vec<u8>>();
-    dedup_input.sort();
+    dedup_input.sort(); // Doesn't seem to scale well
     dedup_input.dedup();
     //println!("Input: {}, Dedup: {}",input,dedup_input);
-    return (initial_size == dedup_input.len())
+    return initial_size == dedup_input.len()
 }
 
 fn main() {
@@ -34,7 +36,7 @@ fn main() {
 
     while !start_of_packet_found {
         let try_input = input.get(start_of_packet_index..=end_of_packet_index).unwrap();
-        if is_start_of_packet_marker(try_input).unwrap() {
+        if all_different_chars(try_input) {
             start_of_packet_found = true;
         } else {
             start_of_packet_index += 1;
