@@ -22,3 +22,10 @@
 * Rust does not like to use indices
 * Starting to understand when to use map
     - Apply a series of procedures to each element of an iterator
+## Day 6
+* Working with indexes is annoying and not a good practice (again)
+* Dedup on Vecs only works on sequential elements
+* Chars cannot be sorted normally
+* (fasterthanli.me) itertools::tuple_windows(),::counts() and ::unique()
+* (fasterthanli.me) Iterator::all(), ::position()
+* (fasterthanli.me) Slice::windows()
