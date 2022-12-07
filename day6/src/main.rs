@@ -1,7 +1,7 @@
 fn all_different_elements(input: &[u8]) -> bool {
     let initial_size = input.len();
     let mut dedup_input = input.to_vec();
-    dedup_input.sort(); // Doesn't seem to scale well
+    dedup_input.sort(); // Doesn't scale well?
     dedup_input.dedup();
     //println!("Input: {}, Dedup: {}",input,dedup_input);
     return initial_size == dedup_input.len()
@@ -11,7 +11,8 @@ fn find_position_end_of_marker(input: &str,size_of_window: usize) -> Option<usiz
     input
         .as_bytes()  //Hard to work with chars, so it's easier to use u8
         .windows(size_of_window)
-        .position(|window| all_different_elements(window))
+        .position(|window| all_different_elements(window)) 
+        // Testing speed with hyperfine shows that using all_different_elements() is faster than using window.iter().unique().count() == window) somehow
         .map(|pos|pos+size_of_window)
 }
 
