@@ -1,5 +1,3 @@
-use itertools::Itertools;
-
 fn all_different_elements(input: &[u8]) -> bool {
     let initial_size = input.len();
     let mut dedup_input = input.to_vec();
