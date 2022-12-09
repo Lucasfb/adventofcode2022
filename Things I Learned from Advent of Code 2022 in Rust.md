@@ -16,6 +16,7 @@
 * Filling lots of data manually is error prone
 ## Day 4
 * Reusing all stuff from previous days
+* Sometimes brute forcing still works, but the result is hard to read
 ## Day 5
 * VecDeque might not be necessary when using pop() and push(), but it can make intention clearer
 * Parsing columns instead of lines can be hard manually
